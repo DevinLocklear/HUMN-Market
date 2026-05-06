@@ -1,0 +1,31 @@
+.browse-page { min-height: 100vh; background: var(--bg); }
+.browse-layout { max-width: 1280px; margin: 0 auto; padding: 74px 24px 48px; display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: start; }
+
+/* Sidebar */
+.browse-sidebar { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 20px; position: sticky; top: 74px; box-shadow: var(--shadow-sm); }
+.sidebar-section { display: flex; flex-direction: column; gap: 10px; }
+.sidebar-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.sidebar-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.sidebar-pill { background: var(--bg-secondary); border: 1px solid var(--border); color: var(--text-secondary); padding: 6px 12px; font-size: 12px; font-weight: 500; cursor: pointer; border-radius: 8px; transition: all 0.1s; font-family: inherit; }
+.sidebar-pill:hover { color: var(--text); }
+.sidebar-pill.active { background: var(--accent-light); color: var(--accent); border-color: var(--accent-mid); font-weight: 600; }
+
+/* Main */
+.browse-main { display: flex; flex-direction: column; gap: 20px; }
+.browse-header { display: flex; align-items: center; justify-content: space-between; }
+.browse-count { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+
+.browse-loading { display: flex; align-items: center; justify-content: center; padding: 80px; }
+.browse-empty { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 16px; padding: 64px 32px; text-align: center; }
+.browse-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+
+/* Watchlist heart */
+.watchlist-heart { position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.9); border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; transition: all 0.1s; color: var(--text-muted); box-shadow: var(--shadow-sm); }
+.watchlist-heart:hover { transform: scale(1.1); }
+.watchlist-heart.saved { color: #ef4444; }
+
+@media (max-width: 768px) {
+  .browse-layout { grid-template-columns: 1fr; padding: 70px 16px 32px; gap: 16px; }
+  .browse-sidebar { position: static; }
+  .browse-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+}

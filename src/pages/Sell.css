@@ -1,0 +1,41 @@
+.sell-page { min-height: 100vh; background: var(--bg-secondary); }
+.sell-layout { max-width: 1100px; margin: 0 auto; padding: 78px 24px 48px; display: grid; grid-template-columns: 1fr 300px; gap: 32px; align-items: start; }
+
+.sell-main { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 32px; box-shadow: var(--shadow-sm); }
+.sell-title { font-size: 24px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 6px; }
+.sell-sub { font-size: 14px; color: var(--text-secondary); margin-bottom: 28px; }
+
+.sell-form { display: flex; flex-direction: column; gap: 0; }
+.sell-section { padding: 24px 0; border-bottom: 1px solid var(--border); }
+.sell-section:last-child { border-bottom: none; padding-bottom: 0; }
+.sell-section-label { font-size: 12px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+
+.type-toggle { display: flex; gap: 8px; }
+.type-btn { flex: 1; background: var(--bg-secondary); border: 1.5px solid var(--border); color: var(--text-secondary); padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 12px; transition: all 0.15s; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.type-btn:hover { border-color: var(--border-strong); color: var(--text); }
+.type-btn.active { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+
+.image-upload-area { border: 2px dashed var(--border); border-radius: 14px; cursor: pointer; transition: all 0.15s; overflow: hidden; }
+.image-upload-area:hover { border-color: var(--accent); background: var(--accent-light); }
+.image-upload-placeholder { padding: 48px 24px; text-align: center; }
+.image-preview { width: 100%; max-height: 320px; object-fit: contain; background: var(--bg-secondary); padding: 12px; }
+
+/* Sidebar */
+.sell-sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 78px; }
+
+.fee-card { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 12px; }
+.fee-card-title { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; }
+.fee-row { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-secondary); }
+.fee-row.red span:last-child { color: var(--red); font-weight: 600; }
+.fee-row.total { font-size: 16px; font-weight: 800; color: var(--text); }
+.fee-divider { height: 1px; background: var(--border); }
+.fee-note { font-size: 12px; color: var(--text-muted); line-height: 1.5; border-top: 1px solid var(--border); padding-top: 10px; }
+
+.tips-card { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; }
+.tips-title { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 2px; }
+.tip-item { font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+
+@media (max-width: 768px) {
+  .sell-layout { grid-template-columns: 1fr; padding-top: 70px; }
+  .sell-sidebar { position: static; }
+}

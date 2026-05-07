@@ -150,15 +150,6 @@ export default function Sell({ session }) {
     setUploadingImages(false);
   }
 
-  const sections = [
-    { id: 'photos', label: 'Photos', icon: '📸' },
-    { id: 'details', label: 'Item Details', icon: '🃏' },
-    { id: 'specifics', label: 'Item Specifics', icon: '📋' },
-    { id: 'pricing', label: 'Pricing', icon: '💰' },
-    { id: 'shipping', label: 'Shipping', icon: '📦' },
-    { id: 'description', label: 'Description', icon: '📝' },
-  ];
-
   const fee = form.price ? (parseFloat(form.price) * 0.05).toFixed(2) : '0.00';
   const payout = form.price ? (parseFloat(form.price) * 0.95).toFixed(2) : '0.00';
 

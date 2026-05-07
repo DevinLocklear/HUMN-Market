@@ -135,9 +135,14 @@ export default function Sell({ session }) {
         item_type: form.item_type,
         price: parseFloat(form.price),
         quantity: parseInt(form.quantity) || 1,
-        description: form.description ? `${form.description}\n\n${JSON.stringify(specifics)}` : JSON.stringify(specifics),
+        description: form.description || null,
         image_url: imageUrls[0] || null,
         status: 'active',
+        // Store specifics as extended fields in description as JSON prefix
+        // Using a separator so we can parse it cleanly
+        ...(Object.keys(specifics).some(k => specifics[k]) ? {
+          description: `SPECS:${JSON.stringify(specifics)}${form.description ? `\nDESC:${form.description}` : ''}`
+        } : { description: form.description || null }),
       }).select().single();
 
       if (error) throw error;

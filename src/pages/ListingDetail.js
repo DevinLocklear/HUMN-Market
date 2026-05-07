@@ -3,6 +3,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../supabase';
 import './ListingDetail.css';
 
+function parseListingContent(raw) {
+  if (!raw) return { specs: null, description: null };
+  if (raw.startsWith('SPECS:')) {
+    const separator = '\nDESC:';
+    const descIdx = raw.indexOf(separator);
+    const specsStr = descIdx > -1 ? raw.slice(6, descIdx) : raw.slice(6);
+    const descStr = descIdx > -1 ? raw.slice(descIdx + separator.length) : null;
+    try { return { specs: JSON.parse(specsStr), description: descStr }; }
+    catch { return { specs: null, description: raw }; }
+  }
+  try { const s = JSON.parse(raw); return { specs: s, description: null }; }
+  catch { return { specs: null, description: raw }; }
+}
+
 export default function ListingDetail({ session }) {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -132,14 +146,40 @@ export default function ListingDetail({ session }) {
 
           <div className="detail-price">${listing.price.toFixed(2)}</div>
 
-          {listing.description && <p className="detail-description">{listing.description}</p>}
+          {(() => {
+            const { specs, description } = parseListingContent(listing.description);
+            return (
+              <>
+                {description && <p className="detail-description">{description}</p>}
+                {specs?.condition_description && <p className="detail-description" style={{ fontStyle: 'italic', color: 'var(--text-secondary)' }}>"{specs.condition_description}"</p>}
 
-          <div className="detail-meta-grid">
-            <div className="detail-meta-item"><div className="detail-meta-label">Condition</div><div className="detail-meta-val">{listing.condition}</div></div>
-            <div className="detail-meta-item"><div className="detail-meta-label">Type</div><div className="detail-meta-val">{listing.item_type === 'sealed' ? 'Sealed Product' : 'Single Card'}</div></div>
-            <div className="detail-meta-item"><div className="detail-meta-label">Quantity</div><div className="detail-meta-val">{listing.quantity}</div></div>
-            <div className="detail-meta-item"><div className="detail-meta-label">Listed</div><div className="detail-meta-val">{new Date(listing.created_at).toLocaleDateString()}</div></div>
-          </div>
+                {/* Item specifics table */}
+                <div className="detail-specs-table">
+                  {[
+                    ['Condition', listing.condition],
+                    ['Type', listing.item_type === 'sealed' ? 'Sealed Product' : 'Single Card'],
+                    specs?.card_number ? ['Card Number', specs.card_number] : null,
+                    specs?.language && specs.language !== 'English' ? ['Language', specs.language] : null,
+                    specs?.grading_company ? ['Graded By', specs.grading_company] : null,
+                    specs?.grade ? ['Grade', specs.grade] : null,
+                    specs?.holo ? ['Holo', 'Yes'] : null,
+                    specs?.first_edition ? ['1st Edition', 'Yes'] : null,
+                    ['Quantity', listing.quantity],
+                    specs?.shipping_type === 'free' ? ['Shipping', 'Free'] : specs?.shipping_cost ? ['Shipping', `$${parseFloat(specs.shipping_cost).toFixed(2)} · ${specs.shipping_carrier || ''}`] : null,
+                    specs?.handling_time ? ['Handling Time', `Ships within ${specs.handling_time} day${specs.handling_time > 1 ? 's' : ''}`] : null,
+                    specs?.returns_policy ? ['Returns', specs.returns_policy] : null,
+                    specs?.best_offer ? ['Best Offer', specs.best_offer_min ? `Yes (min $${specs.best_offer_min})` : 'Yes'] : null,
+                    ['Listed', new Date(listing.created_at).toLocaleDateString()],
+                  ].filter(Boolean).map(([label, val]) => (
+                    <div key={label} className="detail-spec-row">
+                      <div className="detail-spec-label">{label}</div>
+                      <div className="detail-spec-val">{val}</div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            );
+          })()}
 
           {/* Buy box */}
           <div className="buy-box">

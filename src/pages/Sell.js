@@ -7,7 +7,6 @@ const CONDITIONS = ['Raw', 'PSA 10', 'PSA 9', 'PSA 8', 'PSA 7', 'BGS 10', 'BGS 9
 
 export default function Sell({ session }) {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
   const [saving, setSaving] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);

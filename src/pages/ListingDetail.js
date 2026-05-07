@@ -86,7 +86,6 @@ export default function ListingDetail({ session }) {
     );
   }
 
-  const fee = listing ? (listing.price * 0.05).toFixed(2) : '0.00';
   const total = listing ? listing.price.toFixed(2) : '0.00';
 
   if (loading) return <div className="page-loading"><div className="spinner" /></div>;
